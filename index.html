@@ -20,7 +20,14 @@
       <div class="calculator">
         <div class="header">
           <p>calc</p>
-          <p>theme switch</p>
+          <div class="theme">
+            <p>Theme</p>
+            <div class="theme-switch-bg" id="theme-switch-bg">
+              <button class="theme-switch" onclick="ToggleTheme()"></button>
+            </div>
+          </div>
+
+          
         </div>
 
         <div class="screen">
@@ -58,7 +65,7 @@
 
           <div class="row">
             <button class="key remove" id="reset-btn" onclick="reset()">RESET</button>
-            <button class="key submit" id="submit-btn">=</button>
+            <button class="key submit" id="submit-btn" onclick="calc()">=</button>
           </div>
         </div>
       </div>
