@@ -2,19 +2,13 @@ const removeBtn = document.getElementById('remove-btn');
 const submitBtn = document.getElementById('butmit-btn');
 const resetBtn = document.getElementById('reset-btn');
 const screen = document.getElementById('screen');
-const themeSwitch = document.getElementById('theme-switch-bg');
+const themeSwitcher = document.getElementById('theme-switch-bg');
 
-let theme = 0;
+let theme = localStorage.getItem('theme');
 let screenContent = '';
 
 const ToggleTheme = () => {
     let docstyle = document.documentElement.style;
-
-    if (theme < 2) {
-        theme++;    
-    } else{
-        theme = 0;
-    }
     
     if (theme == 0) {
         docstyle.setProperty('--background', 'hsl(222, 26%, 31%)');
@@ -34,7 +28,8 @@ const ToggleTheme = () => {
         docstyle.setProperty('--remove-shadow', 'hsl(224, 28%, 35%)');
         docstyle.setProperty('--remove-toggle', 'hsl(229, 100%, 82%)');
 
-        themeSwitch.style.justifyContent = 'flex-start';
+        localStorage.setItem("theme", theme);
+        themeSwitcher.style.justifyContent = 'flex-start';
     } else if (theme == 1) {
         docstyle.setProperty('--background', 'hsl(0, 0%, 90%)');
         docstyle.setProperty('--text-top', 'hsl(60, 10%, 19%)');
@@ -53,7 +48,8 @@ const ToggleTheme = () => {
         docstyle.setProperty('--remove-shadow', 'hsl(185, 58%, 25%)');
         docstyle.setProperty('--remove-toggle', 'hsl(185, 41%, 56%)');
 
-        themeSwitch.style.justifyContent = 'center';
+        localStorage.setItem("theme", theme);
+        themeSwitcher.style.justifyContent = 'center';
     } else if (theme == 2) {
         docstyle.setProperty('--background', 'hsl(268, 75%, 9%)');
         docstyle.setProperty('--text-top', 'hsl(52, 100%, 62%)');
@@ -72,8 +68,19 @@ const ToggleTheme = () => {
         docstyle.setProperty('--remove-shadow', 'hsl(285, 91%, 52%)');
         docstyle.setProperty('--remove-toggle', ' 	hsl(280, 56%, 44%)');
 
-        themeSwitch.style.justifyContent = 'flex-end';
+        localStorage.setItem("theme", theme);
+        themeSwitcher.style.justifyContent = 'flex-end';
     }
+}
+
+function themeSwitch() {
+    if (theme < 2) {
+        theme++;    
+    } else{
+        theme = 0;
+    }
+
+    ToggleTheme();
 }
 
 function keyPress(value) {
@@ -111,15 +118,25 @@ function remove() {
 function calc() {
     let sum = screen.innerHTML.replace(/x/g, "*");
 
-    let result = eval(sum)
 
-    if (typeof(result) == 'number' && !Number.isNaN(result) && !Number.isInteger(result)) {
-        result = result.toFixed(2)
+    try {
+        let result = eval(sum)
+
+        if (typeof(result) == 'number' && !Number.isNaN(result) && !Number.isInteger(result)) {
+            result = result.toFixed(2);
+        }
+
+        screenContent = result;
+
+        screen.innerHTML = screenContent; 
+    } catch (error) {
+        console.error(error);
+        
+        screen.innerHTML = 'Error';
     }
 
-    screenContent = result;
-
-    screen.innerHTML = screenContent; 
+    
 }
 
+ToggleTheme();
 keyPress('0');
