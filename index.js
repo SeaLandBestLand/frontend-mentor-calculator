@@ -4,9 +4,11 @@ const resetBtn = document.getElementById('reset-btn');
 const screen = document.getElementById('screen');
 const themeSwitcher = document.getElementById('theme-switch-bg');
 
-let theme = localStorage.getItem('theme');
 let screenContent = '';
+//get the last used theme from localstorage
+let theme = localStorage.getItem('theme');
 
+//switch colours depending on theme and set the theme in localsotrage
 const ToggleTheme = () => {
     let docstyle = document.documentElement.style;
     
@@ -73,6 +75,7 @@ const ToggleTheme = () => {
     }
 }
 
+//switch theme variable to change theme colours
 function themeSwitch() {
     if (theme < 2) {
         theme++;    
@@ -83,6 +86,7 @@ function themeSwitch() {
     ToggleTheme();
 }
 
+//display the pressed key on the screen + some validation 
 function keyPress(value) {
     if (value == '.'  && screen.innerHTML == '0') {
         screenContent = '0.';
@@ -99,12 +103,14 @@ function keyPress(value) {
     }
 }
 
+//clear screen
 function reset() {
     screenContent = '0';
 
     screen.innerHTML = '0';
 }
 
+//remove last pressed key
 function remove() {
     screenContent = screenContent.slice(0,-1);
 
@@ -115,13 +121,14 @@ function remove() {
     screen.innerHTML = screenContent;
 }
 
+//calculate the sum from the screen
 function calc() {
     let sum = screen.innerHTML.replace(/x/g, "*");
-
 
     try {
         let result = eval(sum)
 
+        //check if result is a float and round to 2 d.p
         if (typeof(result) == 'number' && !Number.isNaN(result) && !Number.isInteger(result)) {
             result = result.toFixed(2);
         }
@@ -134,8 +141,6 @@ function calc() {
         
         screen.innerHTML = 'Error';
     }
-
-    
 }
 
 ToggleTheme();
