@@ -68,7 +68,7 @@ const ToggleTheme = () => {
         docstyle.setProperty('--submit-toggle', 'hsl(177, 100%, 79%)');
         docstyle.setProperty('--remove', 'hsl(281, 89%, 26%)');
         docstyle.setProperty('--remove-shadow', 'hsl(285, 91%, 52%)');
-        docstyle.setProperty('--remove-toggle', ' 	hsl(280, 56%, 44%)');
+        docstyle.setProperty('--remove-toggle', 'hsl(280, 56%, 44%)');
 
         localStorage.setItem("theme", theme);
         themeSwitcher.style.justifyContent = 'flex-end';
